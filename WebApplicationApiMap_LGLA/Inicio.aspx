@@ -57,6 +57,20 @@
                             </div>
                             <div id="ModalMapPreview" style="width:100%; height:400px;"></div>
                             <div class="clearfix">&nbsp;</div>
+                            <div class="m-t-small">
+                                <label class="p-r-small col-sm-1 control-label">Lat: </label>
+                                <div class="col-sm-3">
+                                    <asp:TextBox ID="ModalMapLat" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                                <label class="p-r-small col-sm-1 control-label">Long: </label>
+                                <div class="col-sm-3">
+                                    <asp:TextBox ID="ModalMapLong" CssClass="form-control" runat="server"></asp:TextBox>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Aceptar</button>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
                             <!-- Hacer uso de script para agregar mapa al modal -->
                             <script>
                                 $('#ModalMapPreview').locationpicker({
@@ -67,7 +81,12 @@
                                     },
                                     enableAutocomplete: true,
                                     inputBinding: {
+                                        latitudeInput: $('#<%=ModalMapLat.ClientID %>'),
+                                        longitudeInput: $('#<%=ModalMapLong.ClientID %>'),
                                         locationNameInput:$('#<%=ModalMapaddress.ClientID %>')
+                                    },
+                                    onchanged: function (currentLocation, radius, isMarkerDropped) {
+                                        $('#ubicacion').html($('#<%=ModalMapaddress.ClientID %>').val());
                                     }
                                 });
                                 $('ModalMap').on('show.bs.modal', function () {
